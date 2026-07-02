@@ -1,0 +1,1017 @@
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class ShellLayout extends StatelessWidget {
+  final Widget child; // child variable , Stores the screen that should appear above the bottom navigation.
+
+
+  const ShellLayout({
+    super.key,
+    required this.child, // requires child widgets when creating the shellLayout.
+  });
+
+  @override
+  Widget build(BuildContext context /* need for navigation*/   ) { //Flutter calls this whenever it needs to draw the UI.
+    final location = GoRouterState.of(context).uri.path; //Gets the current url path example: /tasks /schedule /profile
+
+    int index = 0; //default selection tasks
+
+    if (location.startsWith('/schedule')) {
+      index = 1; //if the current page is /schedule then index is 1
+    } else if (location.startsWith('/profile')) {
+      index = 2; //if the current page is /profile then index is 2
+    } // its like task = 0,scheduled=1,profile=2
+
+    return Scaffold(            //provide the page structure
+      backgroundColor: const Color(0xFFF5F5F5), //sets page background
+      body: child, //display whatever page passed out into ShellLayout
+
+    
+    );
+  }
+}
+
+
+shell-page.dart
+
+
+
+import 'package:go_router/go_router.dart';
+import 'package:pgmaster/pages/Dashboard_page.dart';
+import 'shell_page.dart';
+
+final GoRouter appRouter = GoRouter(
+  initialLocation: '/Dashboard',
+  routes: [
+    ShellRoute(
+      builder: (context, state, child) {
+        return ShellLayout(child: child);
+      },
+      routes: [
+        GoRoute(
+          path: '/Dashboard',
+          builder: (context, state) => const MyWidget(),
+        ),
+       
+      ],
+    ),
+  ],
+); app_router.dart
+
+
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+class sidebar extends StatefulWidget {
+  final Widget child;
+
+  const sidebar({super.key, required this.child});
+
+  @override
+  State<sidebar> createState() => _sidebarState();
+}
+
+class _sidebarState extends State<sidebar> {
+  Widget _navItem(
+    BuildContext context, {
+    required String route,
+    required IconData icon,
+    required String label,
+  }) {
+    final currentPath = GoRouterState.of(context).uri.path;
+    final isSelected = currentPath == route;
+
+    return InkWell(
+      onTap: () => context.go(route),
+
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFFE8680A) : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 20,
+              color: isSelected ? Colors.white : const Color(0xFFB0B8C1),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight:
+                      isSelected ? FontWeight.w600 : FontWeight.w400,
+                  color: isSelected ? Colors.white : const Color(0xFFB0B8C1),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+class Activity {
+  final String status;
+  final Color color;
+  final String title;
+  final String subtitle;
+  final String time;
+
+  Activity({
+    required this.status,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+    required this.time,
+  });
+}
+
+final activities = [
+  Activity(
+    status: "PAID",
+    color: Colors.green,
+    title: "Payment received",
+    subtitle: "Anjali Singh — D-402 — ₹11,000",
+    time: "2h ago",
+  ),
+  Activity(
+    status: "OPEN",
+    color: Colors.orange,
+    title: "Maintenance request",
+    subtitle: "Anjali Singh — D-402 — WiFi weak signal",
+    time: "6h ago",
+  ),
+];
+
+
+class Activity {
+  final String status;
+  final Color color;
+  final String title;
+  final String subtitle;
+  final String time;
+
+  Activity({
+    required this.status,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+    required this.time,
+  });
+}
+
+final activities = [
+  Activity(
+    status: "PAID",
+    color: Colors.green,
+    title: "Payment received",
+    subtitle: "Anjali Singh — D-402 — ₹11,000",
+    time: "2h ago",
+  ),
+  Activity(
+    status: "OPEN",
+    color: Colors.orange,
+    title: "Maintenance request",
+    subtitle: "Anjali Singh — D-402 — WiFi weak signal",
+    time: "6h ago",
+  ),
+];
+
+Card(
+  color: const Color(0xFF181818),
+  child: Padding(
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "RECENT ACTIVITY",
+          style: TextStyle(color: Colors.grey),
+        ),
+        const SizedBox(height: 12),
+
+        ListView.separated(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: activities.length,
+          separatorBuilder: (_, __) => Divider(color: Colors.white12),
+          itemBuilder: (context, index) {
+            final item = activities[index];
+
+            return Row(
+              children: [
+
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: item.color.withOpacity(.15),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Text(
+                    item.status,
+                    style: TextStyle(
+                      color: item.color,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                SizedBox(width: 16),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        item.title,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        item.subtitle,
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                Text(
+                  item.time,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            );
+          },
+        ),
+      ],
+    ),
+  ),
+);
+
+import 'package:flutter/material.dart';
+
+class RecentActivityCard extends StatelessWidget {
+  const RecentActivityCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final activities = [
+      Activity(
+        status: "PAID",
+        statusColor: const Color(0xff10B981),
+        title: "Payment received",
+        subtitle: "Anjali Singh — D-402 — ₹11,000",
+        time: "2h ago",
+      ),
+      Activity(
+        status: "OPEN",
+        statusColor: const Color(0xffF59E0B),
+        title: "Maintenance request",
+        subtitle: "Anjali Singh — D-402 — WiFi weak signal",
+        time: "6h ago",
+      ),
+      Activity(
+        status: "PAID",
+        statusColor: const Color(0xff10B981),
+        title: "Payment received",
+        subtitle: "Divya Iyer — C-302 — ₹12,500",
+        time: "1d ago",
+      ),
+      Activity(
+        status: "OVERDUE",
+        statusColor: const Color(0xffEF4444),
+        title: "Overdue notice sent",
+        subtitle: "Karthik Nair — C-301 — ₹14,000",
+        time: "2d ago",
+      ),
+    ];
+
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xff171717),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: const Color(0xff2A2A2A),
+        ),
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 18, 20, 14),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "RECENT ACTIVITY",
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 12,
+                  letterSpacing: 1.5,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          const Divider(
+            height: 1,
+            color: Color(0xff2A2A2A),
+          ),
+          ListView.separated(
+            itemCount: activities.length,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (_, __) => const Divider(
+              height: 1,
+              color: Color(0xff2A2A2A),
+            ),
+            itemBuilder: (context, index) {
+              final item = activities[index];
+
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 5,
+                      ),
+                      decoration: BoxDecoration(
+                        color: item.statusColor.withOpacity(.15),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        item.status,
+                        style: TextStyle(
+                          color: item.statusColor,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            item.subtitle,
+                            style: TextStyle(
+                              color: Colors.grey.shade500,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      item.time,
+                      style: TextStyle(
+                        color: Colors.grey.shade500,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class Activity {
+  final String status;
+  final Color statusColor;
+  final String title;
+  final String subtitle;
+  final String time;
+
+  Activity({
+    required this.status,
+    required this.statusColor,
+    required this.title,
+    required this.subtitle,
+    required this.time,
+  });
+}
+
+
+Background       : Color(0xff0F0F0F)
+Card             : Color(0xff171717)
+Border           : Color(0xff2A2A2A)
+
+White Text       : Colors.white
+Secondary Text   : Color(0xff8B8B8B)
+
+Paid             : Color(0xff10B981) // Green
+Open             : Color(0xffF59E0B) // Amber
+Overdue          : Color(0xffEF4444) // Red
+
+
+
+Scaffold(
+  backgroundColor: const Color(0xff0F0F0F),
+  body: Padding(
+    padding: const EdgeInsets.all(16),
+    child: RecentActivityCard(),
+  ),
+);
+
+
+For a UI like the one in your screenshot, don't use a Table. This is essentially a list of activity cards/tiles, not tabular data.
+
+The easiest Flutter approach is:
+
+Card or Container for the outer box
+ListView.separated for the rows
+Row for each activity
+Column for the title and subtitle
+Chip or a styled Container for the status badge
+Divider between items
+Structure
+Card
+ ├── Padding
+ │    ├── Text("RECENT ACTIVITY")
+ │    ├── Divider
+ │    └── ListView.separated
+ │         ├── ActivityTile
+ │         ├── Divider
+ │         ├── ActivityTile
+ │         └── ...
+ 
+ 
+ body: SingleChildScrollView(
+  child: Column(
+    children: [
+
+      // Dashboard Cards
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: <Widget>[
+            DashboardCards(
+              title: 'Total Tenants',
+              value: '8',
+              subtitle: 'All rooms occupied',
+              textColor: Colors.black54,
+              containerColor: Colors.deepOrange,
+            ),
+
+            const SizedBox(width: 30),
+
+            DashboardCards(
+              title: 'Collected Jun',
+              value: '₹ 48.5K',
+              subtitle: '4 of 8',
+              containerColor: Colors.grey.shade900,
+              textColor: Colors.white,
+            ),
+
+            const SizedBox(width: 30),
+
+            DashboardCards(
+              title: 'PENDING / DUE',
+              value: '₹ 47.0K',
+              subtitle: '2 overdue',
+              containerColor: Colors.grey.shade900,
+              textColor: Colors.white,
+            ),
+
+            const SizedBox(width: 30),
+
+            DashboardCards(
+              title: 'MAINTENANCE',
+              value: '5',
+              subtitle: 'Open requests',
+              containerColor: Colors.grey.shade900,
+              textColor: Colors.white,
+            ),
+          ],
+        ),
+      ),
+
+      const SizedBox(height: 30),
+
+      // Recent Activity Table
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade900,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: Colors.grey.shade700),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            const Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                "RECENT ACTIVITY",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                  letterSpacing: 2,
+                ),
+              ),
+            ),
+
+            const Divider(height: 1),
+
+            ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: activities.length,
+              separatorBuilder: (_, __) => Divider(
+                color: Colors.grey.shade800,
+                height: 1,
+              ),
+              itemBuilder: (context, index) {
+                final item = activities[index];
+
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 5,
+                        ),
+                        decoration: BoxDecoration(
+                          color: item.color.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Text(
+                          item.status,
+                          style: TextStyle(
+                            color: item.color,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 11,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 15),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.title,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              item.subtitle,
+                              style: const TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Text(
+                        item.time,
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ],
+  ),
+),
+
+final List<Activity> activities = [
+  Activity(
+    status: "PAID",
+    color: Colors.green,
+    title: "Payment received",
+    subtitle: "Anjali Singh - D-402 - ₹11,000",
+    time: "2h ago",
+  ),
+  Activity(
+    status: "OPEN",
+    color: Colors.orange,
+    title: "Maintenance request",
+    subtitle: "Anjali Singh - D-402 - Wifi weak signal",
+    time: "6h ago",
+  ),
+  Activity(
+    status: "PAID",
+    color: Colors.green,
+    title: "Payment received",
+    subtitle: "Divya Iyer - C-302 - ₹12,500",
+    time: "1d ago",
+  ),
+  Activity(
+    status: "OVERDUE",
+    color: Colors.red,
+    title: "Overdue notice sent",
+    subtitle: "Karthik Nair - C-301 - ₹14,000",
+    time: "2d ago",
+  ),
+];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void \_showNewTenantDialog(BuildContext context) {
+final formKey = GlobalKey();
+
+```
+// Style configurations to match the image UI
+const labelStyle = TextStyle(
+  color: Colors.grey, 
+  fontSize: 12, 
+  fontWeight: FontWeight.bold,
+  letterSpacing: 1.1,
+);
+
+InputDecoration customInputDecoration(String hintText, {Widget? suffixIcon}) {
+  return InputDecoration(
+    hintText: hintText,
+    hintStyle: const TextStyle(color: Color(0xFF555555), fontSize: 14),
+    filled: true,
+    fillColor: const Color(0xFF1E1E1E),
+    suffixIcon: suffixIcon,
+    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(6),
+      borderSide: const BorderSide(color: Color(0xFF333333)),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(6),
+      borderSide: const BorderSide(color: Color(0xFFFF6D1F), width: 1.5),
+    ),
+  );
+}
+
+showDialog(
+  context: context,
+  barrierColor: Colors.black87,
+  builder: (BuildContext context) {
+    return Dialog(
+      backgroundColor: const Color(0xFF1A1A1A),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: Container(
+        width: 550, // Matches desktop/web popup box layout aspect ratio
+        padding: const EdgeInsets.all(24.0),
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header Area
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.between,
+                  children: [
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'New Tenant',
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          'Fill in the details to register a resident',
+                          style: TextStyle(fontSize: 13, color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close, color: Colors.grey),
+                      onPressed: () => Navigator.pop(context),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 24),
+
+                // Row 1: Full Name & Room No.
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('FULL NAME', style: labelStyle),
+                          const SizedBox(height: 8),
+                          TextFormField(decoration: customInputDecoration('e.g. Arjun Mehta')),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('ROOM NO.', style: labelStyle),
+                          const SizedBox(height: 8),
+                          TextFormField(decoration: customInputDecoration('e.g. A-101')),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+                // Row 2: Phone Number & Gender
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('PHONE NUMBER', style: labelStyle),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                            decoration: customInputDecoration('10-digit mobile'),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('GENDER', style: labelStyle),
+                          const SizedBox(height: 8),
+                          DropdownButtonFormField<String>(
+                            dropdownColor: const Color(0xFF1E1E1E),
+                            hint: const Text('Select...', style: TextStyle(color: Colors.white70, fontSize: 14)),
+                            decoration: customInputDecoration(''),
+                            items: ['Male', 'Female', 'Other'].map((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value, style: const TextStyle(color: Colors.white)),
+                              );
+                            }).toList(),
+                            onChanged: (_) {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+                // Row 3: Join Date & Monthly Rent
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('JOIN DATE', style: labelStyle),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            readOnly: true,
+                            decoration: customInputDecoration(
+                              'dd-mm-yyyy',
+                              suffixIcon: const Icon(Icons.calendar_today_outlined, color: Colors.white54, size: 18),
+                            ),
+                            onTap: () {
+                              showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(2000),
+                                lastDate: DateTime(2100),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('MONTHLY RENT (₹)', style: labelStyle),
+                          const SizedBox(height: 8),
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: customInputDecoration('e.g. 12000'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+
+                // Row 4: ID Proof Type & ID Number
+                Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('ID PROOF TYPE', style: labelStyle),
+                          const SizedBox(height: 8),  explain it like /human and /truthmode and command me in visual chart how it done explain it like to kid or show me part of code how to use it line by line
+```
+
+showDialog
+│
+└── Dialog
+    │
+    └── Container
+        │
+        └── SingleChildScrollView
+            │
+            └── Form
+                │
+                └── Column
+                    │
+                    ├── Header Row
+                    │      ├── Title
+                    │      └── Close Button
+                    │
+                    ├── Row
+                    │      ├── Full Name
+                    │      └── Room No
+                    │
+                    ├── Row
+                    │      ├── Phone
+                    │      └── Gender
+                    │
+                    ├── Row
+                    │      ├── Join Date
+                    │      └── Monthly Rent
+                    │
+                    └── More Rows...
