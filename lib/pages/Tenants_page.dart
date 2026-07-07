@@ -292,6 +292,13 @@ void _showAddTenantDialog(BuildContext context) {
 
                             TextFormField(
                               obscureText: false,
+                              //using if statement
+                              validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Please enter full name";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: 'e.g. Anjali Singh',
                                 hintStyle: TextStyle(
@@ -335,6 +342,12 @@ void _showAddTenantDialog(BuildContext context) {
 
                             TextFormField(
                               obscureText: false,
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Please enter you room no ";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: 'e.g. D-402',
                                 hintStyle: TextStyle(
@@ -381,6 +394,14 @@ void _showAddTenantDialog(BuildContext context) {
                             const SizedBox(height: 8),
                             TextFormField(
                               keyboardType: TextInputType.phone,
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Please enter phone no";
+                                } if (value.length != 10) {
+                                  return "Phone no must be 10 digits";
+                                }
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "10-digit mobile",
                                 hintStyle: TextStyle(
@@ -415,6 +436,14 @@ void _showAddTenantDialog(BuildContext context) {
 
                             DropdownButtonFormField<String>(
                               // isExpanded: true,
+                              
+                              
+                               validator: (value) {
+                                if(value == null ){
+                                  return "Please select one";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "Select..",
                                 hintStyle: TextStyle(
@@ -471,6 +500,12 @@ void _showAddTenantDialog(BuildContext context) {
                             const SizedBox(height: 4),
 
                             TextFormField(
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Select join date";
+                                } 
+                                return null;
+                              },
                               controller: joinDateController,
                               readOnly: true,
 
@@ -523,6 +558,12 @@ void _showAddTenantDialog(BuildContext context) {
                             const SizedBox(height: 4),
 
                             TextFormField(
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Enter rent payment";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "e.g 12000",
                                 filled: true,
@@ -562,6 +603,12 @@ void _showAddTenantDialog(BuildContext context) {
 
                             DropdownButtonFormField<String>(
                               // isExpanded: true,
+                               validator: (value) {
+                                if(value == null  ){
+                                  return "Please select one";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "Select..",
                                 hintStyle: TextStyle(
@@ -616,6 +663,12 @@ void _showAddTenantDialog(BuildContext context) {
                             ),
                             const SizedBox(height: 6),
                             TextFormField(
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Enter your id man";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "Enter ID number",
                                 filled: true,
@@ -649,6 +702,12 @@ void _showAddTenantDialog(BuildContext context) {
                             ),
                             const SizedBox(height: 6),
                             TextFormField(
+                               validator: (value) {
+                                if(value == null || value.trim().isEmpty){
+                                  return "Dont Forget to add emergency number otherwise you'll kidnap by someone";
+                                } 
+                                return null;
+                              },
                               decoration: InputDecoration(
                                 hintText: "Enter Emergency number",
                                 filled: true,
@@ -677,6 +736,7 @@ void _showAddTenantDialog(BuildContext context) {
                               height: 50,
                               child: ElevatedButton(
                                 onPressed: () {
+                                  if(formKey.currentState!.validate()){
                                   Navigator.pop(context);
                                   // Close the dialog first
 
@@ -692,6 +752,7 @@ void _showAddTenantDialog(BuildContext context) {
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
+                                  }
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.deepOrange,

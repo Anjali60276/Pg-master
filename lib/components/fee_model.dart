@@ -1,4 +1,6 @@
-import 'fee_model.dart';
+// ignore_for_file: unused_import
+
+import 'package:pgmaster/components/fee_model.dart';
 
 class FeeModel {
   final String name;
