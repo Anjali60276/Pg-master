@@ -25,7 +25,7 @@ class _SideBarState extends State<SideBar> {
         page = TenantsPage();
         break;
       case 2:
-        page = const FeesCollectionPage();
+        page =  FeesCollectionPage();
         break;
       default:
         page = const DashboardPage();

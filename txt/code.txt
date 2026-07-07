@@ -1015,3 +1015,26 @@ showDialog
                     │      └── Monthly Rent
                     │
                     └── More Rows...
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                      Text("Fee Collection",
+                    style: TextStyle(color:Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                    
+                    const SizedBox(height:4),
+                    
+                    Text("June 2025 billing cycle",
+                    style:TextStyle(color: Colors.grey,
+                     fontSize: 10,
+                    ), 
+                    ),
+                    
+                  const SizedBox(width: 20),

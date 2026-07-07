@@ -178,14 +178,15 @@ class TenantsPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                   decoration: BoxDecoration(
                     color: e.status == 'ACTIVE'
-                        ? Colors.green.shade100
+                        ? Colors.green.shade500
                         : Colors.red,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(5),
                   ),
                   child: Text(
                     e.status,
                     style: TextStyle(
-                      color: Colors.green.shade800,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
                       fontSize: 12,
                     ),
                   ),
@@ -204,7 +205,7 @@ class TenantsPage extends StatelessWidget {
 }
 
 void _showAddTenantDialog(BuildContext context) {
- final scaffoldContext = context;
+  final scaffoldContext = context;
   final formKey = GlobalKey<FormState>();
   final joinDateController = TextEditingController();
 
@@ -598,20 +599,22 @@ void _showAddTenantDialog(BuildContext context) {
                           ],
                         ),
                       ),
-                      
+
                       SizedBox(width: 15),
-                      
-                       Expanded(child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                         children: [
-                             Text("ID Number",
-                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                             ),
-                             ),
-                             const SizedBox(height: 6),
+
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "ID Number",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
                             TextFormField(
                               decoration: InputDecoration(
                                 hintText: "Enter ID number",
@@ -621,31 +624,30 @@ void _showAddTenantDialog(BuildContext context) {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                               ),
-                            ),  
-                               
-                               
-                         ],
-                        
-                        
-                         
-                       ))
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                  
-                    const SizedBox(height: 20),
-                    
-                    Row(children: [
-                      Expanded(child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                               Text("Emergency Contact",
-                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                             ),
-                             ),
-                             const SizedBox(height: 6),
+
+                  const SizedBox(height: 20),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Emergency Contact",
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
                             TextFormField(
                               decoration: InputDecoration(
                                 hintText: "Enter Emergency number",
@@ -655,90 +657,88 @@ void _showAddTenantDialog(BuildContext context) {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                               ),
-                            ),     
-                      ],
+                            ),
+                          ],
+                        ),
                       ),
-                      ),
-                    ],),
-                    
-                    const SizedBox(height:25),
-                    
-                    Row(children: [
-                      Expanded(child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          
-                              
-                         
-                         SizedBox(
-                          width: 450,
-                          height: 50,
-                           child: ElevatedButton(onPressed: () {
-                             Navigator.pop(context);
-                              // Close the dialog first
-                           
-                             ScaffoldMessenger.of(scaffoldContext).showSnackBar(
-                               const SnackBar(
-                                 content: Text("Tenant registered successfully!"),
-                                  behavior: SnackBarBehavior.floating,
-                                 backgroundColor: Colors.deepOrange,
-                                 duration: Duration(seconds: 2),
-                               ),
-                             );
-                           }, 
-                               style: ElevatedButton.styleFrom(
-                                 backgroundColor: Colors.deepOrange,
-                                 foregroundColor: Colors.black,
-                                 elevation: 0,
-                                 shape: RoundedRectangleBorder(
-                                   borderRadius: BorderRadius.circular(8),
-                                 
-                                 ),
-                               ),
-                           
-                            child: Text("Registered the Tenants",
-                              style: TextStyle(color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                             
-                              ),
-                              ),
-                         ),
-                         
-                        ],
-                      ),
-                      ),
-                      
-                      
-                      
-                      Expanded(child:
-                       Column(
-                         children: [
-                          ElevatedButton(onPressed: () => {
-                             Navigator.pop(context),
-                          }, 
-                          style: ElevatedButton.styleFrom(
-                                 backgroundColor: Colors.black38,
-                                 foregroundColor: Colors.grey,
-                                 shape: RoundedRectangleBorder(
-                                   borderRadius: BorderRadius.circular(5),
-                                 
-                                 ),
-                               ),
-                          
-                          child: Text("Close",
-                          style: TextStyle(color:Colors.grey),
-                          ),
-                          ),
-                          
-                         ],
-                      ),
-                      ),
-                      
-                      
                     ],
-                    ),
-                    
+                  ),
+
+                  const SizedBox(height: 25),
+
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 450,
+                              height: 50,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  // Close the dialog first
+
+                                  ScaffoldMessenger.of(
+                                    scaffoldContext,
+                                  ).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        "Tenant registered successfully!",
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                      backgroundColor: Colors.deepOrange,
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.deepOrange,
+                                  foregroundColor: Colors.black,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+
+                                child: Text(
+                                  "Registered the Tenants",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Expanded(
+                        child: Column(
+                          children: [
+                            ElevatedButton(
+                              onPressed: () => {Navigator.pop(context)},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black38,
+                                foregroundColor: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                              ),
+
+                              child: Text(
+                                "Close",
+                                style: TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),

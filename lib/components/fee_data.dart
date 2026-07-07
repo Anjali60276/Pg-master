@@ -1,10 +1,76 @@
 import 'package:flutter/material.dart';
 
 class FeesCard extends StatelessWidget {
-  const FeesCard({super.key});
+    final String title;
+  final String value;
+  final String subtitle;
+  final Color containerColor;
+  final Color? textColor;
+  final Icon? rupeesIcon;
+ 
+  
+  const FeesCard({super.key,
+    required this.title,
+    required this.value,
+    required this.subtitle,
+    required this.containerColor,
+    this.textColor,
+    this.rupeesIcon,
+
+   });
+   
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return  Padding(
+    padding: EdgeInsets.all(20),
+      child: Container(
+        margin: const EdgeInsets.all(12),
+        height: 100,
+        width: 200,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6),
+          color: containerColor,
+        ),
+        
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              title, 
+              style: const TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 13,
+              ),
+            ),
+            
+           Row(
+  children: [
+    if (rupeesIcon != null) rupeesIcon!,
+    Text(
+      value,
+      style: TextStyle(
+        color: textColor,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
+      ),
+    ),
+  ],
+),
+            Text(
+              subtitle,
+              style: const TextStyle(
+                color: Colors.blueGrey,
+                fontSize: 11,
+              ),
+            ),
+
+          
+          ],
+        ),
+      ),
+    );
   }
 }

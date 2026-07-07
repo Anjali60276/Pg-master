@@ -17,20 +17,23 @@ class DashboardPage extends StatelessWidget {
           children: [
              Padding(
                padding: const EdgeInsets.only(top: 23),
-               child: Text(
-                "Dashboard",
-               style:TextStyle(
-                 fontSize: 24,
-                 fontWeight:FontWeight.bold,
-                 color: Colors.white,
-               ),
-               ),
-             ),
-             
-             SizedBox(height:4,
-            ),
-            
-               Text(
+               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                 children: [
+                   Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                     children: [
+                       Text(
+                        "Dashboard",
+                       style:TextStyle(
+                         fontSize: 24,
+                         fontWeight:FontWeight.bold,
+                         color: Colors.white,
+                       ),
+                       ),
+                       
+                        Text(
               "June 2025 - 8 active rooms",
              style:TextStyle(
                fontSize: 12,
@@ -38,11 +41,15 @@ class DashboardPage extends StatelessWidget {
              ),
              ),
           
-             const SizedBox(width: 20),
-             
+            
+                     ],
+                   ),
+                   
+                        
             Container(
+              margin: EdgeInsets.only(right: 20),
                padding: const EdgeInsets.symmetric(
-        horizontal: 12,
+        horizontal: 10,
         vertical: 8,
       ),
       decoration: BoxDecoration(
@@ -67,6 +74,15 @@ class DashboardPage extends StatelessWidget {
         ],
          ),
             ),
+                 ],
+               ),
+             ),
+             
+             SizedBox(height:4,
+            ),
+            
+              
+  
             
             
             
