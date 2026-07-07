@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pgmaster/go_router/primaryScaffold.dart';
+import 'package:pgmaster/go_router/app_router.dart' ;
 
 // import 'package:pgmaster/layouts/side_bar.dart';
 // import 'package:pgmaster/go_router/app_router.dart';
@@ -15,13 +15,14 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
   debugShowCheckedModeBanner: false,
   themeMode: ThemeMode.dark,
   darkTheme: ThemeData.dark().copyWith(
     scaffoldBackgroundColor: Colors.black,
   ),
-  home: const SideBar(),
+  
+  routerConfig: appRouter,
 );
   }
 }

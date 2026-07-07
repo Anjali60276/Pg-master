@@ -704,7 +704,7 @@ void _showAddTenantDialog(BuildContext context) {
                             TextFormField(
                                validator: (value) {
                                 if(value == null || value.trim().isEmpty){
-                                  return "Dont Forget to add emergency number otherwise you'll kidnap by someone";
+                                  return "Dont Forget to add emergency number ";
                                 } 
                                 return null;
                               },
