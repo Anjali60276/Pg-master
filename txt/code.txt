@@ -1038,3 +1038,68 @@ showDialog
                     ),
                     
                   const SizedBox(width: 20),
+                  
+                  
+                  
+                  
+                  main()
+│
+└── runApp()
+     │
+     └── MyApp
+          │
+          └── MaterialApp
+               │
+               ├── title
+               ├── theme
+               ├── debugShowCheckedModeBanner
+               ├── routes / GoRouter
+               └── home
+                    │
+                    └── HomePage
+                         │
+                         └── Scaffold
+                              │
+                              ├── AppBar
+                              │      ├── leading
+                              │      ├── title
+                              │      ├── actions
+                              │      └── bottom
+                              │
+                              ├── Drawer
+                              │
+                              ├── EndDrawer
+                              │
+                              ├── FloatingActionButton
+                              │
+                              ├── BottomNavigationBar
+                              │
+                              ├── BottomSheet
+                              │
+                              ├── PersistentFooterButtons
+                              │
+                              └── Body
+                                   │
+                                   └── SafeArea
+                                        │
+                                        └── Padding
+                                             │
+                                             └── SingleChildScrollView
+                                                  │
+                                                  └── SizedBox / ConstrainedBox
+                                                       │
+                                                       └── Column
+                                                            │
+                                                            ├── Header
+                                                            │
+                                                            ├── Search Bar
+                                                            │
+                                                            ├── Banner
+                                                            │
+                                                            ├── Categories
+                                                            │
+                                                            ├── Product List
+                                                            │
+                                                            ├── Buttons
+                                                            │
+                                                            └── Footer
