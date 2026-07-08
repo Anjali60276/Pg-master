@@ -129,7 +129,7 @@ class TenantsPage extends StatelessWidget {
                           dataRowMaxHeight: 54.0,
                           // Set the width of each data row
                           columnSpacing: 10.0, // Space between columns
-                          horizontalMargin: 20.0,
+                          horizontalMargin: 19.0,
                           decoration: BoxDecoration(
                             color: const Color.fromARGB(255, 28, 28, 28),
                             borderRadius: BorderRadius.circular(5),

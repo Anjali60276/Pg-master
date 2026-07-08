@@ -59,10 +59,12 @@ class PrimaryScaffold extends StatelessWidget {
                     const SizedBox(height: 40),
                     const Divider(color: Colors.deepOrange),
                     ListTile(
-                      leading: const Icon(
-                        Icons.dashboard_outlined,
-                        color: Colors.black,
-                      ),
+                     leading: Icon(
+  Icons.dashboard_outlined,
+  color: currentLocation == '/dashboard'
+      ? Colors.black
+      : Colors.blueGrey,
+),
                       title: const Text(
                         "Dashboard",
                         style: TextStyle(
@@ -76,10 +78,12 @@ class PrimaryScaffold extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.people_outline,
-                        color: Colors.black,
-                      ),
+                     leading: Icon(
+  Icons.payment_outlined,
+  color: currentLocation == '/fees'
+      ? Colors.black
+      : Colors.blueGrey,
+),
                       title: const Text(
                         "Tenants",
                         style: TextStyle(
@@ -93,10 +97,12 @@ class PrimaryScaffold extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: const Icon(
-                        Icons.payment_outlined,
-                        color: Colors.black,
-                      ),
+                       leading: Icon(
+    Icons.people_outlined,
+    color: currentLocation == '/fees'
+        ? Colors.black
+        : Colors.blueGrey,
+  ),
                       title: const Text(
                         "Fees Collection",
                         style: TextStyle(
