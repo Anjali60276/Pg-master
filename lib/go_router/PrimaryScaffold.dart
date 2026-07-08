@@ -79,8 +79,8 @@ class PrimaryScaffold extends StatelessWidget {
                     ),
                     ListTile(
                      leading: Icon(
-  Icons.payment_outlined,
-  color: currentLocation == '/fees'
+  Icons.people_outlined,
+  color: currentLocation == '/tenants'
       ? Colors.black
       : Colors.blueGrey,
 ),
@@ -98,7 +98,7 @@ class PrimaryScaffold extends StatelessWidget {
                     ),
                     ListTile(
                        leading: Icon(
-    Icons.people_outlined,
+    Icons.payment_outlined,
     color: currentLocation == '/fees'
         ? Colors.black
         : Colors.blueGrey,
